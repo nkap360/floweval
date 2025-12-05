@@ -1,0 +1,44 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+      - "8000:8000"
+    environment:
+      # Supabase
+      - SUPABASE_URL=${VITE_SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      # AI Providers
+      - GOOGLE_API_KEY=${VITE_GEMINI_API_KEY}
+      - OPENAI_API_KEY=${VITE_OPENAI_API_KEY}
+      - DEEPSEEK_API_KEY=${VITE_DEEPSEEK_API_KEY}
+      # API Endpoints
+      - DEEPSEEK_BASE_URL=${DEEPSEEK_BASE_URL:-https://api.deepseek.com}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-https://api.openai.com/v1}
+      # App Config
+      - DATA_DIR=/app/data
+      - DISABLE_AUTH=${DISABLE_AUTH:-false}
+    volumes:
+      - ./data:/app/data
+      - deepeval-cache:/app/.deepeval
+      - app-cache:/app/.cache
+    networks:
+      - floweval-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  floweval-network:
+
+volumes:
+  deepeval-cache:
+  app-cache:

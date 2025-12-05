@@ -1,0 +1,19 @@
+fastapi
+uvicorn[standard]
+pandas
+python-multipart
+httpx
+python-jose[cryptography]
+pytest
+rich
+python-dotenv
+deepeval
+chromadb
+langchain-core
+langchain-community
+langchain-text-splitters
+pypdf
+tiktoken
+supabase
+# fastmcp  # Optional MCP server - uncomment if needed
+resend

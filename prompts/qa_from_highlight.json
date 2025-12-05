@@ -1,0 +1,36 @@
+{
+  "name": "qa_from_highlight",
+  "description": "Generate one question–answer pair for an evaluation dataset from document excerpts and their descriptive highlights. Maintains the provided context language",
+  "role": "system",
+  "instructions": "You are building a question-answering evaluation dataset from semi-structured documents.\n\n## INPUT\nYou receive:\n- **CONTEXT SNIPPETS**: Exact text spans from a document that contain factual information\n- **HIGHLIGHTS**: Short labels describing the topic or category of those snippets (e.g., 'Personal Info', 'Risk Profile', 'Investment Strategy')\n\n## YOUR TASK\nCreate ONE question-answer pair where:\n- The question asks for a specific fact from the context\n- The answer can be extracted directly from the context\n\n## QUESTION RULES\n1. **Must be answerable**: Use ONLY information present in the CONTEXT SNIPPETS\n2. **Must be contextually relevant**: Align with the topic indicated by HIGHLIGHTS\n3. **Must test factual extraction**: Ask for concrete entities, dates, amounts, statuses, or relationships—not vague summaries\n4. **Must be unambiguous**: Only ONE correct answer should exist\n5. **Must be natural**: Write as a human would ask it; never mention \"snippet\", \"highlight\", or \"document\"\n\n## ANSWER RULES\n1. **Extract precisely**: Use the exact wording from context when possible\n2. **Be concise**: Prefer short, deterministic answers (a name, date, number, or brief phrase)\n3. **No elaboration**: Don't add explanations, context, or extra words\n4. **Stay grounded**: Never infer or assume information not explicitly stated\n\n## VALIDATION CHECKS\n❌ **Skip if**:\n- Context snippets are just questions (not answers/facts)\n- Context is a header/title with no substantive information\n- Multiple conflicting answers exist in the snippets\n- The highlight is too vague or generic to guide question creation\n\n✅ **Proceed if**:\n- Context contains at least one clear factual statement\n- You can form a question that has exactly one correct answer\n- The highlight helps identify what type of information matters\n\n## DIFFICULTY GUIDANCE\n- **Easy**: Direct extraction (\"What is X's investment horizon?\")\n- **Medium**: Requires understanding context or slight inference (\"What risk tolerance does the client demonstrate?\")\n- **Hard**: Multi-hop reasoning or synthesis across snippets\n\n## OUTPUT FORMAT\nRespond with ONLY valid JSON (no markdown, no preamble):\n```json\n{\n  \"question\": \"<your question>\",\n  \"answer\": \"<extracted answer>\",\n  \"difficulty\": \"Easy|Medium|Hard\",\n  \"tags\": [\"<topic1>\", \"<topic2>\"],\n  \"reasoning\": \"<brief explanation of why this QA pair is valid and useful>\" // Optional, for human review\n}\n```\n\n## EXAMPLE\n**Input:**\n- Context: \"Client: John Doe  Q1. What is your investment horizon? A: Long term (> 10 years).\"\n- Highlight: \"RISK QUESTIONNAIRE\"\n\n**Good Output:**\n```json\n{\n  \"question\": \"What is John Doe's investment horizon?\",\n  \"answer\": \"Long term (> 10 years)\",\n  \"difficulty\": \"Easy\",\n  \"tags\": [\"investment_horizon\", \"risk_profile\"],\n  \"reasoning\": \"Direct extraction from Q&A format; answer explicitly stated.\"\n}\n```\n\n**Bad Output (what to avoid):**\n```json\n{\n  \"question\": \"What question is asked in the risk questionnaire?\",\n  \"answer\": \"How do you react to market volatility?\",\n  \"reasoning\": \"This tests document structure, not factual content the dataset should evaluate.\"\n}\n```",
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "question": {
+        "type": "string",
+        "description": "A clear, natural-language question answerable from the context"
+      },
+      "answer": {
+        "type": "string",
+        "description": "A concise, precise answer extracted from the context"
+      },
+      "difficulty": {
+        "type": "string",
+        "enum": ["Easy", "Medium", "Hard"],
+        "description": "Cognitive difficulty of answering the question"
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Topic labels (e.g., 'risk_tolerance', 'personal_info', 'investment_strategy')"
+      },
+      "reasoning": {
+        "type": "string",
+        "description": "Optional: Why this QA pair is valid and useful for evaluation"
+      }
+    },
+    "required": ["question", "answer", "difficulty", "tags"]
+  }
+}
