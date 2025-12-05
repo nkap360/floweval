@@ -100,7 +100,7 @@ graph TB
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/your-username/floweval.git
+git clone https://github.com/nkap360/floweval.git
 cd floweval
 ```
 
@@ -369,8 +369,8 @@ Built with:
 
 - **Documentation**: Check [docs/README.md](docs/README.md)
 - **API Docs**: http://localhost:8000/docs (when running)
-- **Issues**: [GitHub Issues](https://github.com/your-username/floweval/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/floweval/discussions)
+- **Issues**: [GitHub Issues](https://github.com/nkap360/floweval/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/nkap360/floweval/discussions)
 
 ## 🗺️ Roadmap
 
