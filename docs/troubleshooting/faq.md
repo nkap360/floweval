@@ -18,7 +18,7 @@ Common questions and answers about Flow Builder.
 
 ### What is Flow Builder?
 
-Flow Builder is a production-grade application for creating and executing AI evaluation workflows. It combines dataset management, PDF annotation, golden review systems, and visual flow building to streamline the entire AI development lifecycle.
+Flow Builder is a  application for creating and executing AI evaluation workflows. It combines dataset management, PDF annotation, golden review systems, and visual flow building to streamline the entire AI development lifecycle.
 
 ### Who is Flow Builder for?
 

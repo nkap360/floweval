@@ -211,7 +211,7 @@ Once documents are processed, Flow Builder uses AI to generate high-quality ques
 - Custom OpenAI Enterprise endpoint
 - Optimized for technical content
 - High-quality structured responses
-- Production-grade reliability
+-  reliability
 
 **Alternative Providers:**
 - **DeepSeek** - Cost-effective, good for technical content

@@ -4,7 +4,7 @@
 
 ![FlowEval Logo](https://via.placeholder.com/150x150?text=FE)
 
-**A production-grade backend API for creating and executing AI evaluation workflows**
+**A  backend API for creating and executing AI evaluation workflows**
 
 FlowEval provides a comprehensive REST API for dataset management, AI evaluation pipelines, and workflow orchestration to streamline the entire AI development lifecycle.
 
