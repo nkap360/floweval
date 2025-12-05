@@ -90,6 +90,8 @@ pip-delete-this-directory.txt
 *.db
 *.sqlite
 *.sqlite3
+*_migrations.sql
+*.sql
 
 # Backup files
 *.bak
