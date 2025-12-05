@@ -63,6 +63,17 @@ data/*.pdf
 data/*.docx
 !data/.gitkeep
 
+# Sample documents (NEVER commit actual samples)
+samples/
+*.docx
+*.pdf
+*.doc
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.txt
+
 # Temporary files
 *.tmp
 *.temp
